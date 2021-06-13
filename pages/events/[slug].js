@@ -30,31 +30,11 @@ export default function EventPage({ evt }) {
   return (
     <Layout>
       <div className={styles.event}>
-        <div className={styles.controls}>
-          <Link href={`/events/edit/${evt.id}`}>
-            <a>
-              <FaPencilAlt /> Edit Event
-            </a>
-          </Link>
-          <a href="#" className={styles.delete} onClick={deleteEvent}>
-            <FaTimes /> Delete Event
-          </a>
-        </div>
         <span>
-          {new Date(evt.date).toLocaleDateString("en-GB")} at {evt.time}
+          {new Date(evt.date).toLocaleDateString("en-US")} at {evt.time}
         </span>
         <h1>{evt.name}</h1>
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        <ToastContainer />
         {evt.image && (
           <div className={styles.image}>
             <Image
@@ -65,12 +45,14 @@ export default function EventPage({ evt }) {
           </div>
         )}
 
-        <h3>Performers: </h3>
+        <h3>Performers:</h3>
         <p>{evt.performers}</p>
-        <h3>Description</h3>
+        <h3>Description:</h3>
         <p>{evt.description}</p>
         <h3>Venue: {evt.venue}</h3>
         <p>{evt.address}</p>
+
+        <EventMap evt={evt} />
 
         <Link href="/events">
           <a className={styles.back}>{"<"} Go Back</a>
