@@ -10,6 +10,8 @@ export const AuthProvider = ({ children }) => {
 
   const router = useRouter();
 
+  useEffect(() => checkUserLoggedIn(), [])
+
   // Register user
   const register = async (user) => {
     console.log(user);
@@ -46,7 +48,16 @@ export const AuthProvider = ({ children }) => {
 
   // Chech if user logged in
   const checkUserLoggedIn = async (user) => {
-    console.log(user);
+   
+    const res = await fetch(`${NEXT_URL}/api/user`)
+    const data = await res.json()
+
+    if (res.ok) {
+      setUser(data.user)
+    } else {
+      setUser(null)
+    }
+
   };
 
   return (
